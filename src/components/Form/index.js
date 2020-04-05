@@ -46,7 +46,7 @@ const FormList = (props) => {
  
   
   return (
-    <div style={{width:600,border:'1px solid red',margin:20,padding:50}}>
+    <div style={{border:'1px solid red',margin:20,padding:50}}>
     <Form
       {...layout}
       name="basic"

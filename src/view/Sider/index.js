@@ -1,78 +1,100 @@
-import React from "react";
-import { Menu } from "antd";
+import React, { Fragment } from "react";
+import { Menu, Layout } from "antd";
 import {
-  AppstoreOutlined,
-  MailOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  Link,
+} from "react-router-dom";
+import Index from "../../components/Form/index";
+import Home from "../../components/Form/home";
+import Welcome from "../../components/Form/welcome";
+import SliderList from "../../public/sider";
+
+const { Header, Footer, Sider, Content } = Layout;
 
 const { SubMenu } = Menu;
 
-class Sider extends React.Component {
+class SliderListView extends React.Component {
   handleClick = (e) => {
     console.log("click ", e);
   };
-
-  render() {
-    return (
-      <Menu
-        onClick={this.handleClick}
-        style={{ width: 256 }}
-        defaultSelectedKeys={["1"]}
-        defaultOpenKeys={["sub1"]}
-        mode="inline"
-      >
-        <SubMenu
-          key="sub1"
-          title={
-            <span>
-              <MailOutlined />
-              <span>Navigation One</span>
-            </span>
-          }
-        >
-          <Menu.ItemGroup key="g1" title="Item 1">
-            <Menu.Item key="1">Option 1</Menu.Item>
-            <Menu.Item key="2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup key="g2" title="Item 2">
-            <Menu.Item key="3">Option 3</Menu.Item>
-            <Menu.Item key="4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
-        </SubMenu>
-        <SubMenu
-          key="sub2"
-          title={
-            <span>
-              <AppstoreOutlined />
-              <span>Navigation Two</span>
-            </span>
-          }
-        >
-          <Menu.Item key="5">Option 5</Menu.Item>
-          <Menu.Item key="6">Option 6</Menu.Item>
-          <SubMenu key="sub3" title="Submenu">
-            <Menu.Item key="7">Option 7</Menu.Item>
-            <Menu.Item key="8">Option 8</Menu.Item>
+  handleSliderList(SliderList) {
+    return SliderList.map((item, index) => {
+      if (item.MenuItem) {
+        if (item.MenuItemCopy) {
+          console.log(item.MenuItem);
+          return (
+            <SubMenu key={item.key} title={item.title}>
+              {item.MenuItem.map((item) => {
+                return (
+                  <Menu.Item key={item.key}>
+                    <Link to={item.path}>{item.content}</Link>
+                  </Menu.Item>
+                );
+              })}
+            </SubMenu>
+          );
+        } else {
+          return (
+            <SubMenu key={item.key} title={item.title}>
+              {this.handleSliderList(item.MenuItem)}
+            </SubMenu>
+          );
+        }
+      } else if (item.ItemGroup) {
+        return (
+          <SubMenu key={item.key} title={item.title}>
+            {item.ItemGroup.map((item, index) => {
+              return (
+                <Menu.ItemGroup key={item.key} title={item.title}>
+                  {this.handleSliderList(item.MenuItem)}
+                </Menu.ItemGroup>
+              );
+            })}
+            ;
           </SubMenu>
-        </SubMenu>
-        <SubMenu
-          key="sub4"
-          title={
-            <span>
-              <SettingOutlined />
-              <span>Navigation Three</span>
-            </span>
-          }
-        >
-          <Menu.Item key="9">Option 9</Menu.Item>
-          <Menu.Item key="10">Option 10</Menu.Item>
-          <Menu.Item key="11">Option 11</Menu.Item>
-          <Menu.Item key="12">Option 12</Menu.Item>
-        </SubMenu>
-      </Menu>
+        );
+      } else {
+        return (
+          <Menu.Item key={item.key}>
+            <Link to={item.path}>{item.content}</Link>
+          </Menu.Item>
+        );
+      }
+    });
+  }
+  render() {
+    console.log(SliderList);
+    return (
+      <Router>
+        <div style={{ display: "flex" }}>
+          <Menu
+            onClick={this.handleClick}
+            style={{ width: 256 }}
+            defaultSelectedKeys={["1"]}
+            defaultOpenKeys={["sub1"]}
+            mode="inline"
+          >
+            {this.handleSliderList(SliderList)}
+          </Menu>
+          <Layout>
+            <Header style={{ background: "none" }}>
+                header
+            </Header>
+            <Content>
+              <Switch>
+                <Route exact path="/" component={Index} />
+                <Route exact path="/home" component={Home} />
+                <Route exact path="/welcome" component={Welcome} />
+              </Switch>
+            </Content>
+            <Footer>Footer</Footer>
+          </Layout>
+        </div>
+      </Router>
     );
   }
 }
 
-export default Sider;
+export default SliderListView;
