@@ -1,0 +1,19 @@
+.sider-box{
+ 
+}
+.sider-header{
+    height: 200px;
+    width: 100%;
+    display:flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 20px;
+
+
+}
+.sider-image {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
