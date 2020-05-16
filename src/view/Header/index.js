@@ -1,23 +1,24 @@
 import React, { Fragment } from "react";
 import { handleSubRouter } from "../../store/action/create-action";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { CloseOutlined } from "@ant-design/icons";
 import "./index.css";
 
 
 const HeaderView = (props) => {
-  console.log(props)
+ 
   const dispatch = useDispatch();
-  
+  const history = useHistory();
   // 取出仓库中定义的 state
   const state = useSelector((state) => {
     return state;
   });
   const { routerList } = state.router;
-  const params= props.location.state
-  console.log(params)
+  const params= history.location.state
+  
+ 
   return (
     <Fragment>
       <div className="header-userInfo">
@@ -41,7 +42,7 @@ const HeaderView = (props) => {
               <span
                 style={{ marginRight: 10 }}
                 onClick={() => {
-                  props.history.push(item.path, item);
+                   history.push(item.path, item);
                 }}
               >
                 {typeof item.content === "string" ? item.content : item.title}
@@ -61,18 +62,4 @@ const HeaderView = (props) => {
     </Fragment>
   );
 };
-
-function mapStateToProps(state) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  // withRouter传入的prop，用于编程式导航
- 
-  return {};
-}
-
-// export default FormList
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(React.memo(HeaderView))
-);
+export default HeaderView

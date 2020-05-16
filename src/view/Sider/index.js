@@ -27,7 +27,7 @@ const  SliderListView = ()=> {
   const state = useSelector((state) => {
     return state;
   });
-  console.log(state)
+ 
   const {routerList} = state.router
  const  handleSliderList=(SliderList)=>{
  
@@ -40,8 +40,8 @@ const  SliderListView = ()=> {
           );
         
       } else {
-        console.log(item.path)
-        let state = typeof(item.content)==='string'?item:item.title
+      
+        // let state = typeof(item.content)==='string'?item:item.title
         return (
           <Menu.Item key={item.key} params={item}>
             <Link to={item.path} > {item.content}</Link>
@@ -51,8 +51,7 @@ const  SliderListView = ()=> {
     })
   }
   const handleClick=(e)=>{
-   console.log(e,routerList)
-   console.log(e.item.props.params)
+
    const params = e.item.props.params
    if(routerList.includes(params)===false){
        routerList.push(params)
