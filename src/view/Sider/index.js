@@ -6,6 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Link,
+  Redirect
 } from "react-router-dom";
 import { handleAddRouter} from '../../store/action/create-action'
 import Home from "../Home/index";
@@ -91,6 +92,7 @@ const  SliderListView = ()=> {
                 <Route exact path="/device_version_manage/:name" component={DeviceVersionManage} />
                 <Route exact path="/charge_pile_manage" component={ChargePileManage} />
                 <Route exact path="/charge_station_manage" component={ChargeStationManage} />
+                <Redirect  from="/*" to="/" />)
               </Switch>
             </Content>
           </Layout>
