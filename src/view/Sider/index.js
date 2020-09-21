@@ -6,100 +6,119 @@ import {
   BrowserRouter as Router,
   Switch,
   Link,
-  Redirect
+  Redirect,
 } from "react-router-dom";
-import { handleAddRouter} from '../../store/action/create-action'
+
+import { handleAddRouter } from "../../store/action/create-action";
 import Home from "../Home/index";
 import DeviceVersionManage from "../DeviceManage/DeviceVersionManage";
 import ChargePileManage from "../DeviceManage/ChargePileManage";
 import ChargeStationManage from "../DeviceManage/ChargeStationManage";
+import UserInfo from "../UserManage/useInfo";
 
 import SliderList from "../../public/sider";
-import HeaderView from '../Header'
-import './index.css'
-const {  Content } = Layout;
+import HeaderView from "../Header";
+import "./index.css";
+const { Content } = Layout;
 
 const { SubMenu } = Menu;
 
-const  SliderListView = ()=> {
+const SliderListView = () => {
   const dispatch = useDispatch();
 
   // 取出仓库中定义的 state
   const state = useSelector((state) => {
     return state;
   });
- 
-  const {routerList} = state.router
- const  handleSliderList=(SliderList)=>{
- 
+  console.log(state);
+  const { routerList } = state.router;
+  const handleSliderList = (SliderList) => {
     return SliderList.map((item, index) => {
       if (item.MenuItem) {
-          return (
-            <SubMenu key={item.key} title={item.title} params={item}>
-              {handleSliderList(item.MenuItem)}
-            </SubMenu>
-          );
-        
+        return (
+          <SubMenu key={item.key} title={item.title} params={item}>
+            {handleSliderList(item.MenuItem)}
+          </SubMenu>
+        );
       } else {
-      
-        // let state = typeof(item.content)==='string'?item:item.title
         return (
           <Menu.Item key={item.key} params={item}>
-            <Link to={item.path} > {item.content}</Link>
+            <Link
+              to={{
+                pathname: item.path,
+                query: item,
+              }}
+            >
+              {item.content}
+            </Link>
           </Menu.Item>
         );
       }
-    })
-  }
-  const handleClick=(e)=>{
+    });
+  };
+  const handleClick = (e) => {
+    console.log(e);
+    const params = e.item.props.params;
+    if (routerList.includes(params) === false) {
+      routerList.push(params);
+      if (routerList.length > 6) {
+        routerList.shift();
+      }
+      dispatch(handleAddRouter(routerList));
+    }
+  };
 
-   const params = e.item.props.params
-   if(routerList.includes(params)===false){
-       routerList.push(params)
-       if(routerList.length>6){
-         routerList.shift()
-       }
-       dispatch(handleAddRouter(routerList))
-   }
-   
-  }
-  
-    return (
-      <Router>
-        <div style={{ display: "flex" }}>
-          <div  className='sider-box'>
-            <div  className='sider-header'>
-                <img src='https://himg.bdimg.com/sys/portraith/item/hec.1.173b0160.xCs_5bY5_sJdLWVFQDUlAA.jpg' alt='' className='sider-image'  />
-            </div>
-              <Menu
-                onClick={handleClick}
-                style={{ width: 256}}
-                defaultSelectedKeys={["index"]}
-                defaultOpenKeys={["sub0"]}
-                mode="inline"
-              >
-                {handleSliderList(SliderList)}
-              </Menu>
-           
-           
+  return (
+    <Router>
+      <div style={{ display: "flex" }}>
+        <div className="sider-box">
+          <div className="sider-header">
+            
+            <i class="icon iconfont icon-denglu"  style={{fontSize:120,color:"white"}}></i>
           </div>
-
-          <Layout>
-            <HeaderView></HeaderView>
-            <Content>
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/device_version_manage/:name" component={DeviceVersionManage} />
-                <Route exact path="/charge_pile_manage" component={ChargePileManage} />
-                <Route exact path="/charge_station_manage" component={ChargeStationManage} />
-                <Redirect  from="/*" to="/" />)
-              </Switch>
-            </Content>
-          </Layout>
+          <Menu
+            onClick={handleClick}
+            style={{ width: 240 }}
+            defaultSelectedKeys={["index"]}
+            defaultOpenKeys={["sub0"]}
+            mode="inline"
+          >
+            {handleSliderList(SliderList)}
+          </Menu>
         </div>
-      </Router>
-    )
-  
-}
+
+        <Layout>
+          <HeaderView></HeaderView>
+          <Content style={{margin:20}}>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route
+                exact
+                path="/device_version_manage"
+                component={DeviceVersionManage}
+              />
+              <Route
+                exact
+                path="/charge_pile_manage"
+                component={ChargePileManage}
+              />
+              <Route
+                exact
+                path="/charge_station_manage"
+                component={ChargeStationManage}
+              />
+              <Route
+                exact
+                path="/user_info"
+                component={UserInfo}
+              />
+              <Redirect from="/*" to="/" />)
+            </Switch>
+          </Content>
+        </Layout>
+      </div>
+    </Router>
+  );
+};
 
 export default SliderListView;

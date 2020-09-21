@@ -1,9 +1,10 @@
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import reducer from "./reducers/combineReducers";
+import logger from 'redux-logger'
+import reducer from "./combineReducers";
 export default () => {
-  const middlewares = [thunk];
+  const middlewares = [thunk,logger];
   const enhancers = applyMiddleware(...middlewares);
   const composedEnhancers = composeWithDevTools(...[enhancers]);
   const store = createStore(reducer, composedEnhancers);

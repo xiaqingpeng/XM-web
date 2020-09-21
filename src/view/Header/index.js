@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { handleSubRouter } from "../../store/action/create-action";
+import { handleSubRouter } from "./redux/action";
 
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,10 +15,10 @@ const HeaderView = (props) => {
   const state = useSelector((state) => {
     return state;
   });
-  const { routerList } = state.router;
-  const params= history.location.state
-  
+  const { routerList } = state.header;
+  const params= history.location.query
  
+ console.log(params)
   return (
     <Fragment>
       <div className="header-userInfo">

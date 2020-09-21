@@ -87,14 +87,21 @@ export default [
   },
   {
     key: "user_manage",
-    content: (
+    title: (
       <span>
         <MailOutlined />
         <span>用户管理</span>
       </span>
     ),
-    path:'/user_manage',
-    title:'用户管理'
+    fatherNode:'用户管理',
+    MenuItem: [
+      {
+        key: "user_info",
+        path: "/user_info",
+        content: "用户信息",
+        fatherNode:'用户信息',
+      },
+    ],
   },
   {
     key: "sub5",
