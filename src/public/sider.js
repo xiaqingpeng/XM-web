@@ -98,8 +98,14 @@ export default [
       {
         key: "user_info",
         path: "/user_info",
-        content: "用户信息",
-        fatherNode:'用户信息',
+        content: "用户列表",
+        fatherNode:'用户列表',
+      },
+      {
+        key: "user_detail",
+        path: "/user_detail",
+        content: "用户详情",
+        fatherNode:'用户详情',
       },
     ],
   },

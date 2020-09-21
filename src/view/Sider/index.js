@@ -14,7 +14,8 @@ import Home from "../Home/index";
 import DeviceVersionManage from "../DeviceManage/DeviceVersionManage";
 import ChargePileManage from "../DeviceManage/ChargePileManage";
 import ChargeStationManage from "../DeviceManage/ChargeStationManage";
-import UserInfo from "../UserManage/useInfo";
+import UserInfo from "../UserManage/userInfo";
+import UserDetail from "../UserManage/userDetail";
 
 import SliderList from "../../public/sider";
 import HeaderView from "../Header";
@@ -74,7 +75,7 @@ const SliderListView = () => {
         <div className="sider-box">
           <div className="sider-header">
             
-            <i class="icon iconfont icon-denglu"  style={{fontSize:120,color:"white"}}></i>
+            <i className="icon iconfont icon-denglu"  style={{fontSize:120,color:"white"}}></i>
           </div>
           <Menu
             onClick={handleClick}
@@ -111,6 +112,11 @@ const SliderListView = () => {
                 exact
                 path="/user_info"
                 component={UserInfo}
+              />
+              <Route
+                exact
+                path="/user_detail"
+                component={UserDetail}
               />
               <Redirect from="/*" to="/" />)
             </Switch>

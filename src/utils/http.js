@@ -24,7 +24,7 @@ instance.interceptors.response.use(
     return response.data;
   },
   error => {
-    Toast.fail(error.message);
+    console.log(error.message)
     return Promise.reject(error);
   }
 )

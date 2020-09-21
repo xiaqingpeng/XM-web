@@ -17,8 +17,6 @@ const HeaderView = (props) => {
   });
   const { routerList } = state.header;
   const params= history.location.query
- 
- console.log(params)
   return (
     <Fragment>
       <div className="header-userInfo">
