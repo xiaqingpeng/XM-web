@@ -18,7 +18,10 @@ const UserInfo = () => {
   };
   const handClick = (record,name) => {
     console.log(record,name);
-    history.push('/user_detail',record)
+    if(name==="查看详情"){
+      history.push('/user_detail',record)
+    }
+   
   };
   const columns = [
     {
