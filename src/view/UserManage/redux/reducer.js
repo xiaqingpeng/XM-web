@@ -12,6 +12,12 @@ export default (state = initState, action) => {
     case DELETE_USER:
       newState.userList = action.payload;
       return newState;
+    case INSERT_USER:
+      newState.userList = action.payload;
+      return newState;
+    case UPDATE_USER:
+      newState.userList = action.payload;
+      return newState;
     default:
       return state;
   }

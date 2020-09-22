@@ -4,7 +4,7 @@ import {
   INSERT_USER,
   DELETE_USER,
 } from "./actionType.js";
-import { getUserList,deleteUserList } from "../../../api/userManage";
+import { getUserList,deleteUserList,insertUserList,updateUserList } from "../../../api/userManage";
 export const handleFindUser = (params, callback) => {
   console.log(params);
   return  async(dispatch) => {
@@ -22,7 +22,7 @@ export const handleUpdateUser = (params, callback) => {
   console.log(params);
   return  async(dispatch) => {
     console.log(params);
-    let res = await getUserList(params);
+    let res = await updateUserList(params);
     console.log(res);
     callback && callback(res);
     dispatch({
@@ -35,7 +35,7 @@ export const handleInsertUser = (params, callback) => {
   console.log(params);
   return  async(dispatch) => {
     console.log(params);
-    let res = await getUserList(params);
+    let res = await insertUserList(params);
     console.log(res);
     callback && callback(res);
     dispatch({
