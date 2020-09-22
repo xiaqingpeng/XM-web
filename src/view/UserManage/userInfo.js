@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useHistory,useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Table, Pagination } from "antd";
 import { useDispatch, useSelector, useStore } from "react-redux";
-import { handleFindUser } from "./redux/action";
+import { handleFindUser, handleDeleteUser } from "./redux/action";
 const UserInfo = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -16,12 +16,17 @@ const UserInfo = () => {
     setOffset(current - 1);
     setLimit(pagesize);
   };
-  const handClick = (record,name) => {
-    console.log(record,name);
-    if(name==="查看详情"){
-      history.push('/user_detail',record)
+  const handClick = (record, name) => {
+    console.log(record, name);
+    if (name === "查看详情") {
+      history.push("/user_detail", record);
+    } else if ((name = "删除")) {
+      dispatch(
+        handleDeleteUser({
+          user_id: record.user_id,
+        })
+      );
     }
-   
   };
   const columns = [
     {
@@ -67,10 +72,10 @@ const UserInfo = () => {
               justifyContent: "space-evenly",
             }}
           >
-            <a onClick={() => handClick(record,'查看详情')}>查看详情</a>
-            <a onClick={() => handClick(record,'新增')}>新增</a>
-            <a onClick={() => handClick(record,'编辑')}>编辑</a>
-            <a onClick={() => handClick(record,'删除')}>删除</a>
+            <a onClick={() => handClick(record, "查看详情")}>查看详情</a>
+            <a onClick={() => handClick(record, "新增")}>新增</a>
+            <a onClick={() => handClick(record, "编辑")}>编辑</a>
+            <a onClick={() => handClick(record, "删除")}>删除</a>
           </div>
         );
       },

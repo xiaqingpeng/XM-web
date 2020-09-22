@@ -9,6 +9,9 @@ export default (state = initState, action) => {
     case FIND_USER:
       newState.userList = action.payload;
       return newState;
+    case DELETE_USER:
+      newState.userList = action.payload;
+      return newState;
     default:
       return state;
   }
